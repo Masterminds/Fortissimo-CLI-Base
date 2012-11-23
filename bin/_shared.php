@@ -22,6 +22,12 @@ if (empty($target)) {
 // the application.
 $registry = new Registry('fort-application');
 
+// Adding prompts (input) and output.
+$output = new BasicOutput();
+$prompt = new BasicPrompt($output);
+$registry->datasource(function() use ($output) {return $output; }, 'output');
+$registry->datasource(function() use ($prompt) {return $prompt; }, 'prompt');
+
 // The output injection logger puts any log messages into the buffer. Think of
 // this like using print or echo.
 $registry->logger('\Fortissimo\Logger\OutputInjectionLogger', 'foil');
@@ -33,7 +39,6 @@ $config = iterator_to_array($iterator);
 foreach ($config as $file) {
   require_once $file;
 };
-
 
 // Run the commandline runner.
 $runner = new Runner($argv);
