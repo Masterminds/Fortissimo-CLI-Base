@@ -12,20 +12,11 @@ use Fortissimo\Registry;
 
 global $argv;
 
-// We are expecting this to run in the form of:
-//   php app.php command --options
-// If a different format is going to be used this next section should be modified.
-// From the example above $argv[0] is app.php and $argv[1] is command.
-if (count($argv) < 2) {
-  print "You must specify a target. Try 'help'." . PHP_EOL;
-  exit(1);
+$target = \Fortissimo\CLI\ParseOptions::getFirstArgument($argv);
+
+if (empty($target)) {
+  $target = 'help';
 }
-
-// We are expecting the command as the first thing following the name of the app.
-$target = $argv[1];
-
-$argvOffset = 1;
-
 
 // Build the registry. The name of the registry should be changed to a name for
 // the application.
