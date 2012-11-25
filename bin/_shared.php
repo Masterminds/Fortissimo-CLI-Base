@@ -7,8 +7,11 @@
 require_once FORT_APP_PATH . '/vendor/autoload.php';
 
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\Finder\Adapter\PhpAdapter;
 use Fortissimo\CLI\Runtime\Runner;
 use Fortissimo\Registry;
+use Fortissimo\CLI\IO\BasicOutput;
+use Fortissimo\CLI\IO\BasicPrompt;
 
 global $argv;
 
@@ -35,6 +38,10 @@ $registry->logger('\Fortissimo\Logger\OutputInjectionLogger', 'foil');
 
 // Load all of the configuration files. They are loaded in alpha order.
 $iterator = Finder::create()->files()->name('*.php')->in(array(FORT_APP_PATH . '/config'));
+
+// Because this iterator may be used in a Phar file we want to specify the PhpAdapter.
+$iterator->removeAdapters();
+$iterator->addAdapter(new PhpAdapter());
 $config = iterator_to_array($iterator);
 foreach ($config as $file) {
   require_once $file;
