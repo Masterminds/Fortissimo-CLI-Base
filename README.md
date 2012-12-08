@@ -6,7 +6,7 @@ Fortissimo is a chain-of-command based framework. This means you create reusable
 ## Using the Skeleton
 There are two ways you get started using this skeleton project. The simplest is to use `composer create-project` in a manner like:
 
-    > composer create-project Masterminds/Fortissimo-CLI-Base foo-project-name
+    > composer create-project masterminds/fortissimo-cli-base foo-project-name
 
 This will get you right up and going. Alternately you can grab this project right out of git. Then from the root of the project run `composer install` to install all the project dependencies. You should also update the `composer.json` file to include any dependencies of your own and add your psr-0 config component for autoloading.
 
