@@ -40,8 +40,9 @@ $registry->logger('\Fortissimo\Logger\OutputInjectionLogger', 'foil');
 $iterator = Finder::create()->files()->name('*.php')->in(array(FORT_APP_PATH . '/config'));
 
 // Because this iterator may be used in a Phar file we want to specify the PhpAdapter.
-$iterator->removeAdapters();
-$iterator->addAdapter(new PhpAdapter());
+// @todo When moving to symfony version greater than 2.1.x uncomment the following 2 lines.
+//$iterator->removeAdapters();
+//$iterator->addAdapter(new PhpAdapter());
 $config = iterator_to_array($iterator);
 foreach ($config as $file) {
   require_once $file;
